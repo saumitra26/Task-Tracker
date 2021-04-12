@@ -21,31 +21,33 @@ const App=()=> {
   //fetch data  
   
   const featchTasks= async()=>{
-    const res= await fetch('https://localhost:5002/tasks')
-    const data= await res.json();
+   const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+
     return data
   }
   const featchTask= async(id)=>{
-    const res= await fetch(`https://localhost:5002/tasks/${id} `)
-    const data= await res.json();
+    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    const data = await res.json()
+
     return data
   }
     const addTask= async (task)=>{
       //const id= Math.floor(Math.random()*1000) +1
       //const newTask={id, ...task}
       //setTasks([...tasks,newTask])
-      const res= await fetch("https://localhost:5002/tasks",{
-        method:'POST',
-        headers:{
-          'Content-type':'application/json'
-        },
-        body:JSON.stringify(task)
+      const res = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(task),
       })
       const data= await res.json()
       setTasks([...tasks,data])
     }
     const deleteTask= async (id)=>{
-      await fetch(`https://localhost:5002/tasks/`&{id},{
+      await fetch(`http://localhost:5000/tasks/`&{id},{
         method:'DELETE'
       })
       setTasks(tasks.filter((tasks) => (tasks.id !==id)))
@@ -53,7 +55,7 @@ const App=()=> {
     const toggleReminder=async(id)=>{
       const taskToToggle= await featchTask(id);
       const upTask={...taskToToggle, reminder: !taskToToggle.reminder}
-      const res= await fetch(`https://localhost:5002/tasks/`&{id},{
+      const res= await fetch(`http://localhost:5002/tasks/`&{id},{
         method:'PUT',
         headers:{
           'Content-type':'application/json'
